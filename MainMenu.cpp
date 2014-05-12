@@ -32,3 +32,36 @@ MainMenu::MenuResult MainMenu::Show(sf::RenderWindow& window)
 
 	return GetMenuResponse(window);
 }
+
+MainMenu::MenuResult MainMenu::HandleClick(int x, int y)
+{
+	std::list<MenuItem>::iterator it;
+
+	for(it = _menuItems.begin(); it != _menuItems.end(); it++)
+	{
+		sf::Rect<int> menuItemRect = (*it).rect;
+		if(menuItemRect.top && menuItemRect.left) // puuttuu bottom ja right, ei kuulu 2.0:an
+			return (*it).action;
+	}
+
+	return Nothing;
+}
+
+MainMenu::MenuResult MainMenu::GetMenuResponse(sf::RenderWindow& window)
+{
+	sf::Event menuEvent;
+
+	while(true)
+	{
+		while(window.pollEvent(menuEvent))
+		{
+			if(menuEvent.type == sf::Event::MouseButtonPressed)
+			{
+				return HandleClick(menuEvent.mouseButton.x,
+									menuEvent.mouseButton.y);
+			}
+			if(menuEvent.type == sf::Event::Closed)
+				return Exit;
+		}
+	}
+}
