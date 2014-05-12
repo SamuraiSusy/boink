@@ -4,6 +4,9 @@
 
 #include "SFML/Window.hpp"
 #include "SFML/Graphics.hpp"
+#include "SplashScreen.h"
+#include "MainMenu.h"
+#include "PlayerPaddle.h"
 
 class Game
 {
@@ -16,9 +19,13 @@ class Game
 
 		static GameState _gameState;
 		static sf::RenderWindow _mainWindow;
+		static PlayerPaddle _player1;
 
 		static bool IsExiting();
 		static void GameLoop();
+
+		static void ShowSplashScreen();
+		static void ShowMenu();
 };
 
 #endif

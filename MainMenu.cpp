@@ -40,8 +40,13 @@ MainMenu::MenuResult MainMenu::HandleClick(int x, int y)
 	for(it = _menuItems.begin(); it != _menuItems.end(); it++)
 	{
 		sf::Rect<int> menuItemRect = (*it).rect;
-		if(menuItemRect.top && menuItemRect.left) // puuttuu bottom ja right, ei kuulu 2.0:an
+		if(menuItemRect.top + menuItemRect.height > y
+			&& menuItemRect.top < y
+			&& menuItemRect.left < x
+			&& menuItemRect.left + menuItemRect.height) // olis voinu käyttää aivoi enemmä..
+		{
 			return (*it).action;
+		}
 	}
 
 	return Nothing;
